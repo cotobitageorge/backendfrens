@@ -14,7 +14,7 @@ namespace Frens.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        private FrensContext _db;
+        private readonly FrensContext _db;
 
         public UserController(FrensContext db)
         {
@@ -23,6 +23,16 @@ namespace Frens.Controllers
         [HttpGet]
         public ActionResult<List<User>> GetAll()
         {
+            var currentUser = HttpContext.User;
+
+            if(currentUser.HasClaim(claim => claim.Type == "Role"))
+            {
+                var role = currentUser.Claims.FirstOrDefault(c => c.Type = "Role").Value;
+                if(role == "Admin")
+                {
+                    return _db.Users.ToList();
+                }
+            }
             return _db.Users.ToList();
         }
         [HttpGet]
