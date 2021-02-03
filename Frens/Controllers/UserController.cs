@@ -13,7 +13,7 @@ using static Frens.Enums;
 
 namespace Frens.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly FrensContext _db;

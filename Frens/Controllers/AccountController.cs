@@ -40,7 +40,7 @@ namespace Frens.Controllers
 
                 if (existingUserWithMail)
                 {
-                    // return message that this mail is taken
+                    return BadRequest(new { status = false, message = "Email already in use" });
                 }
 
                 var userToCreate = new User
@@ -100,7 +100,7 @@ namespace Frens.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
-              expires: DateTime.Now.AddDays(30),
+              expires: DateTime.Now.AddDays(120),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
