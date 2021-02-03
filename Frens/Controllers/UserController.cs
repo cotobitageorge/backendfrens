@@ -13,7 +13,7 @@ using static Frens.Enums;
 
 namespace Frens.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly FrensContext _db;
@@ -77,7 +77,8 @@ namespace Frens.Controllers
                     FirstName = payload.FirstName,
                     LastName = payload.LastName,
                     Email = payload.Email,
-                    Gender = payload.Gender
+                    Gender = payload.Gender,
+                    PasswordHash=payload.Password
                 };
 
                 _db.Users.Add(userToAdd);
