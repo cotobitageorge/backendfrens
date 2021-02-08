@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Frens.Entities.Models
 {
-    public class Post
+    public class Comment
     {
         public int Id { get; set; }
         public string Text { get; set; }
         public User User { get; set; }
+        public Post Post { get; set; }
+        public int PostId { get; set; }
         public int UserId { get; set; }
-        public List<Comment> Comment { get; set; }
-
     }
 }

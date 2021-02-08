@@ -28,7 +28,7 @@ namespace Frens.Controllers
             _config = configuration;
             _db = db;
         }
-
+        [Route("Register")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterPayload registerPayload)
@@ -63,7 +63,7 @@ namespace Frens.Controllers
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
-
+        [Route("Login")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginPayload loginPayload)
@@ -95,6 +95,7 @@ namespace Frens.Controllers
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("Role", user.Role),
+                new Claim("Id", user.Id.ToString())
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],

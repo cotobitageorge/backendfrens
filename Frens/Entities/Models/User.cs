@@ -22,5 +22,7 @@ namespace Frens.Entities.Models
         public string Role { get; set; }
 
         public List<Post> Posts { get; set; }
+        public List<Comment> Comment { get; set; }
+
     }
 }

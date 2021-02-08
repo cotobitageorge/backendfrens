@@ -13,7 +13,7 @@ using static Frens.Enums;
 
 namespace Frens.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly FrensContext _db;
@@ -101,7 +101,10 @@ namespace Frens.Controllers
             {
                 if (payload.Id.HasValue)
                 {
-                    var userToUpdate = _db.Users.SingleOrDefault(user => payload.Id.Value == user.Id);
+                    var userToUpdate = _db.Users
+
+                        .SingleOrDefault(user => payload.Id.Value == user.Id);
+
 
                     userToUpdate.FirstName = payload.FirstName;
                     userToUpdate.LastName = payload.LastName;
