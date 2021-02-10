@@ -25,17 +25,25 @@ namespace Frens.Controllers
             _db = db;
         }
 
-
+        [Route("GetAllPosts")]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Post>> GetAllPosts()
         {
-            return _db.Posts.ToList();
+            var postare = _db.Posts.Include(p => p.User).Include(p => p.Comment).OrderByDescending(p => p.Id).ToList();
+            return (postare);
+            //return _db.Posts.Include(p => p.User).ToList();
+
         }
 
+        [Route("GetPostsById")]
+        [AllowAnonymous]
+        [HttpGet]
         [HttpGet]
         public ActionResult<Post> GetById(int Id)
         {
-            return _db.Posts.Single(post => Id == post.Id);
+            var postare= _db.Posts.Include(p=>p.User).Single(post => Id == post.Id);
+            return postare;
         }
         [Route("Create")]
         [AllowAnonymous]
@@ -70,6 +78,7 @@ namespace Frens.Controllers
 
         [Route("Comment")]
         [AllowAnonymous]
+
         public ActionResult<Comment> CreateComment([FromBody] CommentPayload payload)
         {
             try
@@ -97,5 +106,24 @@ namespace Frens.Controllers
 
             }
         }//create code end 
+
+        [Route("GetAllComments")]
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult<List<Comment>> GetAllComments()
+        {
+            return _db.Comments.ToList();
+        }
+
+        [Route("GetCommentById")]
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult<List<Comment>> GetCommentById(int Id)
+        {
+            var com = _db.Posts.Include(p=> p.Comment).Single(post => Id == post.Id).Comment;
+
+            return com;
+        } 
+
     }
 }

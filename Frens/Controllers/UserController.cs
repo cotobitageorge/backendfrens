@@ -14,6 +14,8 @@ using static Frens.Enums;
 namespace Frens.Controllers
 {
     //[Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly FrensContext _db;
@@ -25,8 +27,15 @@ namespace Frens.Controllers
 
 
         // /user/getall?pageSize=50&pageNumber=2&sortType=1
+        [Route("GetAll")]
+        [AllowAnonymous]
         [HttpGet]
-        public ActionResult<List<User>> GetAll(int pageSize, int pageNumber, UsersSortType sortType)
+        public ActionResult<List<User>> GetAll()
+        {
+            var userToGet = _db.Users.ToList();
+            return userToGet;
+        }
+        /*public ActionResult<List<User>> GetAll(int pageSize, int pageNumber, UsersSortType sortType)
         {
             var currentUser = HttpContext.User;
 
@@ -59,8 +68,9 @@ namespace Frens.Controllers
                 else return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
             return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-        }
-
+        }*/
+        [Route("GetUserById")]
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<User> GetById(int Id)
         {

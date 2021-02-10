@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Frens.Migrations
 {
     [DbContext(typeof(FrensContext))]
-    [Migration("20210208105918_adsadassadasdasdsadasda")]
-    partial class adsadassadasdasdsadasda
+    [Migration("20210210124954_dasdasdas")]
+    partial class dasdasdas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

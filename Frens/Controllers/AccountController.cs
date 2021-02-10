@@ -49,6 +49,7 @@ namespace Frens.Controllers
                     FirstName = registerPayload.FirstName,
                     LastName = registerPayload.LastName,
                     PasswordHash = BC.HashPassword(registerPayload.Password),
+                    Gender = registerPayload.Gender,
                     Role = "SimpleUser",
                 };
 
@@ -95,7 +96,10 @@ namespace Frens.Controllers
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("Role", user.Role),
-                new Claim("Id", user.Id.ToString())
+                new Claim("Id", user.Id.ToString()),
+                new Claim("firstName", user.FirstName),
+                new Claim("lastName", user.LastName),
+                new Claim("gender", user.Gender)
             };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
